@@ -1,0 +1,13 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+    font-size: 18px;
+    color: #333;
+}
+
+body {
+    margin: 0;
+}
