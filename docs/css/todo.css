@@ -10,4 +10,24 @@ html {
 
 body {
     margin: 0;
+    padding: 2rem;
+}
+
+h1 {
+    font-weight: 400;
+}
+
+.task-list {
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+}
+
+.task-list li {
+    list-style: none;
+    padding: .5rem;
+}
+
+.task-list li:not(:last-child) {
+    border-bottom: 1px solid #ccc;
 }
