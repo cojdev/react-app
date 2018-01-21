@@ -21,7 +21,17 @@ function uid(len) {
   }
 
   return string;
- }
+}
+
+class TaskForm extends React.Component {
+  render() {
+    return (
+      <form className="task-form">
+        <input type="text" placeholder="What do you need to do?"/>
+      </form>
+    );
+  }
+}
 
 class TaskList extends React.Component {
 	render() {
@@ -60,8 +70,8 @@ class App extends React.Component {
 	}
 	render() {
 		return (
-			<div className="react">
-        <h1>React Todo App</h1>
+			<div className="app">
+        <TaskForm />
 				<TaskList tasks={this.state.tasks} />
 			</div>
 		);

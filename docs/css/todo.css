@@ -11,23 +11,58 @@ html {
 body {
     margin: 0;
     padding: 2rem;
+    background: #f2f5fb;
 }
 
 h1 {
-    font-weight: 400;
+    font-weight: 300;
+    font-size: 2.5rem;
+    color: #28e;
+}
+
+input[type=text] {
+    font-weight: 300;
+    display: block;
+    background: #fff;
+    color: #888;
+    border: none;
+    height: 3rem;
+    line-height: 3rem;
+    padding-left: 1rem;
+    font-size: 1.5rem;
+    font-family: inherit;
+    width: 100%;
+    outline: none;
+}
+
+input[type=text]:focus {
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, .05);
+}
+
+.app {
+    padding: 0;
+    margin: 0;
+    background: #28e;
+    box-shadow: 0 3px 10px rgb(240, 241, 243);
+    border-radius: 3px;
+    overflow: hidden;
+    max-width: 1000px;
+}
+
+.task-form {
+    margin: 0;
+    display: block;
+    padding: 1rem;
 }
 
 .task-list {
     padding: 0;
     margin: 0;
-    border: 1px solid #ccc;
+    background: #fff;
 }
 
 .task-list li {
     list-style: none;
-    padding: .5rem;
-}
-
-.task-list li:not(:last-child) {
-    border-bottom: 1px solid #ccc;
+    padding: 1rem;
+    border-top: 1px solid #f0f1f3;
 }
