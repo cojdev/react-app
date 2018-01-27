@@ -29,8 +29,10 @@ class TaskForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.addTask.bind(this)} className="task-form">
-        <input type="text" placeholder="What do you need to do?"/>
-				<button type="Submit">Add</button>
+				<div className="task-input">
+					<input type="text" placeholder="What do you need to do?"/>
+				</div>
+				<button className="task-add-button" type="Submit">Add</button>
       </form>
     );
   }
