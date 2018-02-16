@@ -23,9 +23,13 @@ body {
   background: #f2f5fb;
 }
 h1 {
-  font-weight: 300;
-  font-size: 2.5rem;
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: .1ch;
   color: #f26;
+  margin: 0 0 1em;
+  line-height: 1;
 }
 input[type=text] {
   font-weight: 300;
@@ -33,8 +37,8 @@ input[type=text] {
   background: #fff;
   color: #888;
   border: none;
-  height: 3rem;
-  line-height: 3rem;
+  height: 2rem;
+  line-height: 2rem;
   padding-left: 1rem;
   font-size: 1.5rem;
   font-family: inherit;
@@ -44,14 +48,27 @@ input[type=text] {
 input[type=text]:focus {
   box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+.wrap {
+  margin: 0 auto;
+  max-width: 800px;
+}
 .app {
   padding: 0;
   margin: 0 auto;
-  background: #f26;
-  box-shadow: 0 3px 10px #edf0f2;
-  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
   overflow: hidden;
-  max-width: 1000px;
+  position: relative;
+}
+.app::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(to right, #f26, #ff22b0);
 }
 .task-form {
   margin: 0;
@@ -69,33 +86,43 @@ input[type=text]:focus {
   padding: 1rem;
   border-top: 1px solid #edf0f2;
 }
-.task-input,
-.task-add-button {
+.task-input {
+  width: calc(92%);
   float: left;
 }
-.task-input {
-  width: 75%;
+.task-add-button {
+  float: right;
 }
 .task-add-button {
-  width: 25%;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
+  line-height: 1rem;
+  border-radius: 50px;
   cursor: pointer;
   display: inline-block;
   outline: none;
   font-family: inherit;
   border: none;
+  padding: 0;
   color: #778d9c;
-  font-weight: 300;
-  font-size: 1.24rem;
-  background: #edf0f2;
+  font-size: 2rem;
+  background: transparent;
   transition: 150ms ease;
 }
+.task-add-button svg {
+  display: block;
+  stroke: #555;
+  stroke-width: 2px;
+  stroke-linecap: round;
+  width: 100%;
+  height: 100%;
+}
 .task-add-button:hover {
-  background: #cfd7dd;
+  background: #f2f2f2;
 }
 .task-add-button:active {
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
-  background: #c1cbd2;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: #e6e6e6;
 }
 .task-item-remove {
   cursor: pointer;

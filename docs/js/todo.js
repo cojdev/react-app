@@ -32,7 +32,11 @@ class TaskForm extends React.Component {
 				<div className="task-input">
 					<input type="text" placeholder="What do you need to do?"/>
 				</div>
-				<button className="task-add-button" type="Submit">Add</button>
+				<button className="task-add-button" type="Submit">
+					<svg viewBox="0 0 40 40">
+						<path d="M10 20 L30 20 M20 10 L20 30" />
+					</svg>
+				</button>
       </form>
     );
   }
