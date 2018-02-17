@@ -49,7 +49,11 @@ class TaskList extends React.Component {
       return (
 				<li key={task.id}><input id={task.id} type="checkbox"/>
           <label htmlFor={task.id}>{task.content}</label>
-          <button className="task-item-remove"></button>
+          <button className="task-item-remove">
+						<svg viewBox="0 0 40 40">
+							<path d="M15 15 L25 25 M25 15 L15 25" />
+						</svg>
+					</button>
         </li>
       )
     });
