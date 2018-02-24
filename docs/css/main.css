@@ -28,21 +28,39 @@ body {
 }
 body {
   padding: 2rem;
-  background: #f2f5fb;
+  background: #eeeef6;
+}
+a {
+  text-decoration: none;
+  color: #0000cc;
+}
+a:hover {
+  text-decoration: underline;
 }
 h1 {
   font-weight: 700;
   font-size: 1.5rem;
   text-transform: uppercase;
   letter-spacing: .1ch;
-  color: #e14;
+  color: #121221;
   margin: 0 0 1em;
+  padding: 0 0 1em;
   line-height: 1;
+  position: relative;
+}
+h1:after {
+  display: block;
+  position: absolute;
+  content: '';
+  height: 2px;
+  width: 80px;
+  bottom: 0;
+  background: #3d99f5;
 }
 input[type=text] {
   font-weight: 300;
   display: block;
-  background: #fff;
+  background: transparent;
   color: #888;
   border: none;
   height: 2rem;
@@ -58,10 +76,10 @@ input[type=text]:focus {
 }
 .wrap {
   margin: 0 auto;
-  max-width: 800px;
+  max-width: 720px;
 }
 .app {
-  padding: 4px 0 0;
+  padding: 0 0 3px;
   margin: 0 auto;
   background: #fff;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
@@ -70,19 +88,22 @@ input[type=text]:focus {
   position: relative;
 }
 .app::after {
-  content: '';
   display: block;
   position: absolute;
-  top: 0;
-  height: 4px;
+  content: '';
+  bottom: 0;
+  height: 3px;
   width: 100%;
-  background: linear-gradient(to right, #e14, #ee118e);
+  border-radius: 0 0 50px 50px;
+  background: linear-gradient(to right, #3d99f5, #3dd6f5);
 }
 .task-form {
   margin: 0;
   display: block;
   padding: 1rem;
   overflow: hidden;
+  background: #fff;
+  border-bottom: 1px solid #dedeed;
 }
 .task-list {
   padding: 0;
@@ -92,11 +113,11 @@ input[type=text]:focus {
 .task-list li {
   list-style: none;
   padding: .5rem 1rem;
-  border-top: 1px solid #e9e9f7;
 }
 .task-input {
   width: calc(92%);
   float: left;
+  background: transparent;
 }
 .task-add-button {
   float: right;
@@ -111,7 +132,7 @@ input[type=text]:focus {
   height: 2rem;
   border-radius: 50px;
   padding: 0;
-  color: #5656be;
+  color: #5959a6;
   font-size: 2rem;
   background: transparent;
   transition: 150ms ease;
@@ -123,6 +144,7 @@ input[type=text]:focus {
   stroke-linecap: round;
   width: 100%;
   height: 100%;
+  stroke: #3d99f5;
 }
 .task-add-button:hover {
   background: #f2f2f2;
@@ -144,6 +166,7 @@ input[type=text]:focus {
   border: none;
   padding: 0;
   background: transparent;
+  transition: 300ms ease;
 }
 .task-item-remove svg {
   display: block;
@@ -152,7 +175,7 @@ input[type=text]:focus {
   stroke-linecap: round;
   width: 100%;
   height: 100%;
-  stroke: #e9e9f7;
+  stroke: #dedeed;
 }
 .task-item-remove:hover svg {
   stroke: #e14;
@@ -188,7 +211,7 @@ input[type=checkbox] + label::before {
   width: 1.25rem;
   margin-right: .5rem;
   top: calc((100% - 1.25rem) / 2);
-  border: 2px solid #e9e9f7;
+  border: 1px solid #dedeed;
   border-radius: 50px;
 }
 input[type=checkbox] + label::after {
@@ -197,8 +220,8 @@ input[type=checkbox] + label::after {
   height: 0.35714286rem;
   width: 0.625rem;
   margin-right: .5rem;
-  border-left: 2px solid #e14;
-  border-bottom: 2px solid #e14;
+  border-left: 2px solid #3d99f5;
+  border-bottom: 2px solid #3d99f5;
   transform: rotate(-45deg) scale(0.5);
   transform-origin: 50% 50%;
   opacity: 0;
@@ -210,6 +233,12 @@ input[type=checkbox]:checked + label {
 input[type=checkbox]:checked + label::after {
   opacity: 1;
   transform: rotate(-45deg) scale(1);
+}
+.footer {
+  padding: 5rem 0;
+  text-align: center;
+  color: #888;
+  font-size: .9rem;
 }
 
 /*# sourceMappingURL=main.css.map */

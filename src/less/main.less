@@ -4,7 +4,15 @@
 
 body {
     padding: 2rem;
-    background: #f2f5fb;
+    background: mix(@accent-light, white, 50%);
+}
+
+a {
+    text-decoration: none;
+    color: @accent;
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 h1 {
@@ -12,15 +20,24 @@ h1 {
     font-size: 1.5rem;
     text-transform: uppercase;
     letter-spacing: .1ch;
-    color: @primary;
+    color: @accent-dark;
     margin: 0 0 1em;
+    padding: 0 0 1em;
     line-height: 1;
+    position: relative;
+    &:after {
+        .pseudo;
+        height: 2px;
+        width: 80px;
+        bottom: 0;
+        background: @primary;
+    }
 }
 
 input[type=text] {
     font-weight: 300;
     display: block;
-    background: #fff;
+    background: transparent;
     color: #888;
     border: none;
     height: 2rem;
@@ -37,11 +54,11 @@ input[type=text] {
 
 .wrap {
     margin: 0 auto;
-    max-width: 800px;
+    max-width: @body-width;
 }
 
 .app {
-    padding: 4px 0 0;
+    padding: 0 0 3px;
     margin: 0 auto;
     background: #fff;
     box-shadow: 0 5px 20px rgba(0,0,0,.1);
@@ -49,12 +66,11 @@ input[type=text] {
     overflow: hidden;
     position: relative;
     &::after {
-        content: '';
-        display: block;
-        position: absolute;
-        top: 0;
-        height: 4px;
+        .pseudo;
+        bottom: 0;
+        height: 3px;
         width: 100%;
+        border-radius: 0 0 50px 50px;
         background: linear-gradient(to right, @primary, spin(@primary, -20%));
     }
 }
@@ -64,6 +80,8 @@ input[type=text] {
     display: block;
     padding: 1rem;
     overflow: hidden;
+    background: #fff;
+    border-bottom: 1px solid @accent-light;
 }
 
 .task-list {
@@ -74,13 +92,13 @@ input[type=text] {
     li {
         list-style: none;
         padding: .5rem 1rem;
-        border-top: 1px solid @accent-light;
     }
 }
 
 .task-input {
     width: calc(100% - 8rem);
     float: left;
+    background: transparent;
 }
 
 .task-add-button {
@@ -100,6 +118,7 @@ input[type=text] {
 
     svg {
         .svg-line;
+        stroke: @primary;
     }
 
     &:hover {
@@ -123,6 +142,7 @@ input[type=text] {
     border: none;
     padding: 0;
     background: transparent;
+    transition: 300ms ease;
     
     svg {
         .svg-line;
@@ -130,7 +150,7 @@ input[type=text] {
     }
 
     &:hover svg {
-        stroke: @primary;
+        stroke: #e14;
     }
 
     &::before {
@@ -165,24 +185,23 @@ input[type=checkbox] {
         }
 
         @check-size: 1.25rem;
-
+        // Ring
         &::before {
             left: 0;
             height: @check-size;
             width: @check-size;
             margin-right: .5rem;
             top: ~"calc((100% - @{check-size}) / 2)";
-            border: 2px solid @accent-light;
+            border: 1px solid @accent-light;
             border-radius: 50px;
         }
-
+        // Tick
         &::after {
             // Params
             @height: @check-size / 3.5;
             @width: @check-size / 2;
             @angle: 45deg;
-
-            left: (@check-size - @width)/ 2;
+            left: (@check-size - @width) / 2;
             top: (@check-size - @height - (@height * sin(@angle) / 2)) / 2;
             height: @height;
             width: @width;
@@ -205,4 +224,11 @@ input[type=checkbox]:checked + label {
         opacity: 1;
         transform: rotate(-@angle) scale(1);
     }
+}
+
+.footer {
+    padding: 5rem 0;
+    text-align: center;
+    color: #888;
+    font-size: .9rem;
 }

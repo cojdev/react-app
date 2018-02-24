@@ -1,9 +1,11 @@
+@body-width: 720px;
+
 // Primary Colours
-@primary: #e14;
-@primary-light: mix(@primary, white, 10%);
-@primary-dark: mix(@primary, black, 20%);
+@primary: hsl(210, 90%, 60%);
+@primary-light: hsl(hue(@primary), 30%, 90%);
+@primary-dark: hsl(hue(@primary), 30%, 10%);
 
 // Accent Colours
-@accent: #22a;
-@accent-light: mix(@accent, white, 10%);
-@accent-dark: mix(@accent, black, 20%);
+@accent: hsl(240, 100%, 40%);
+@accent-light: hsl(hue(@accent), 30%, 90%);
+@accent-dark: hsl(hue(@accent), 30%, 10%);
