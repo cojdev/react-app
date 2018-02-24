@@ -115,6 +115,31 @@ class TaskList extends React.Component {
 	}
 }
 
+class TaskControls extends React.Component {
+	render() {
+		return (
+			<div className="task-controls">
+				<span>{this.props.completed()} / {this.props.total()} Tasks Completed</span>
+				<button
+					onClick={this.props.setActiveList.bind(this, 'all')}
+					className={this.props.activeList === 'all' ? 'btn-active' : ''}>
+					All Tasks
+				</button>
+				<button
+					onClick={this.props.setActiveList.bind(this, 'active')}
+					className={this.props.activeList === 'active' ? 'btn-active' : ''}>
+					Active
+				</button>
+				<button
+					onClick={this.props.setActiveList.bind(this, 'completed')}
+					className={this.props.activeList === 'completed' ? 'btn-active' : ''}>
+					Completed
+				</button>
+			</div>
+		)
+	}
+}
+
 class App extends React.Component {
 	constructor() {
 		super();
@@ -124,21 +149,29 @@ class App extends React.Component {
 	}
 
 	componentWillMount() {
-		this.setState({tasks: [
-			{
-				id: uuid(),
-				content: "Make task list",
-				completed: false 
-			},
-			{
-				id: uuid(),
-				content: "Make Presentation",
-				completed: true
-			}
-		]});
-
+		this.setState({
+			tasks: [
+				{
+					id: uuid(),
+					content: "Make to do list",
+					completed: true 
+				},
+				{
+					id: uuid(),
+					content: "Learn React",
+					completed: false 
+				},
+				{
+					id: uuid(),
+					content: "Make another app",
+					completed: false
+				}
+			],
+			activeList: 'all'
+		});
 	}
 
+	// Handlers
 	handleAddTask(task) {
 		console.log(task);
 		let tasks = this.state.tasks;
@@ -162,14 +195,54 @@ class App extends React.Component {
 		this.setState({tasks: tasks});
 	}
 
+	// Setters
+	setActiveList(list) {
+		let activeList = list;
+		this.setState({activeList: activeList});
+	}   
+
+	// Getters
+	getCompletedTasks() {
+		let tasks = this.state.tasks;
+		let completed = tasks.filter(item => item.completed === true);
+		return completed.length;
+	}
+
+	getTotalTasks() {
+		return this.state.tasks.length;
+	}
+
+	getActiveList() {
+		let active = this.state.activeList;
+		let tasks = this.state.tasks;
+		switch (active) {
+			case 'all':
+				return tasks;
+				break;
+			case 'active':
+				return tasks.filter(item => item.completed === false);
+				break;
+			case 'completed':
+				return tasks.filter(item => item.completed === true);
+				break;
+		}
+	}
+
 	render() {
 		return (
 			<div className="app">
         <AddTask addTask={this.handleAddTask.bind(this)} />
+
 				<TaskList 
-					tasks={this.state.tasks}
+					tasks={this.getActiveList.call(this)}
 					removeTask={this.handleRemoveTask.bind(this)}
 					checkTask={this.handleCheckTask.bind(this)} />
+
+				<TaskControls
+					completed={this.getCompletedTasks.bind(this)}
+					total={this.getTotalTasks.bind(this)}
+					activeList={this.state.activeList}
+					setActiveList={this.setActiveList.bind(this)} />
 			</div>
 		);
 	}

@@ -114,6 +114,37 @@ input[type=text]:focus {
   list-style: none;
   padding: .5rem 1rem;
 }
+.task-controls {
+  background-color: #eeeef6;
+  padding: .5rem 1rem;
+}
+.task-controls span {
+  float: right;
+  height: 2rem;
+  line-height: 2rem;
+  color: #9b9ba6;
+}
+.task-controls button {
+  cursor: pointer;
+  display: inline-block;
+  outline: none;
+  font-family: inherit;
+  border: none;
+  padding: .5rem 1rem;
+  border-radius: 100px;
+  margin-right: .5rem;
+  background-color: transparent;
+  transition: 150ms ease;
+  box-shadow: inset 0 0 0 1px #dedeed;
+}
+.task-controls button:hover {
+  box-shadow: none;
+  background-color: #dedeed;
+}
+.task-controls button.btn-active {
+  background-color: #dedeed;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 .task-input {
   width: calc(92%);
   float: left;
