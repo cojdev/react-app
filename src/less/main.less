@@ -116,6 +116,7 @@ input[type=text] {
             box-shadow: none;
             background-color: @accent-light;
         }
+        &:active,
         &.btn-active {
             background-color: @accent-light;
             box-shadow: inset 0 2px 5px rgba(0,0,0,.1);
@@ -123,7 +124,44 @@ input[type=text] {
     }
 }
 
+.modal-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+.modal {
+    background-color: #fff;
+    box-shadow: 0 5px 20px rgba(0,0,0,.1);
+}
+
+.task-tags {
+    padding: .5rem 1rem;
+    border-bottom: 1px solid mix(@primary-light, #fff, 50%);
+    button {
+        .button;
+        border-radius: 100px;
+        padding: .1rem .4rem .1rem .25rem;
+        margin-right: .5rem;
+        transition: 300ms ease;
+        &:hover {
+            background-color: mix(@primary-light, #fff, 50%);
+        }
+        span {
+            border-radius: 100px;
+            height: .75em;
+            width: .75em;
+            display: inline-block;
+            margin-right: .5rem;
+            vertical-align: baseline;
+        }
+    }
+}
 
 .task-input {
     width: calc(100% - 8rem);
