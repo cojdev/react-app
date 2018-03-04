@@ -57,7 +57,7 @@ class AddTask extends React.Component {
 				content: this.refs.taskName.value,
 				completed: false,
 				id: uuid(),
-				tag: false
+				tag: 'home'
 			}}, function () {
 				console.log(this.state);
 				this.props.addTask(this.state.newTask);
@@ -94,13 +94,13 @@ class TaskItem extends React.Component {
 
 	render() {
 		let tags = this.props.tags,
-				task = this.props.task;
+			task = this.props.task;
 
-		let colour = tags[task.tag] !== undefined ? tags[task.tag].colour : '#ccc';
+		//let colour = tags[task.tag] !== undefined ? tags[task.tag].colour : '#ccc';
 				
-		let tagStyle = {
-			borderColor: colour
-		}
+		//let tagStyle = {
+		//	borderColor: tags[task.tag].colour
+		//}
 		return (
 			<li>
 				<input
@@ -188,7 +188,9 @@ class Tags extends React.Component {
 				background: tag.colour
 			};
 			return (
-				<button key={tag.id}>
+				<button
+					key={tag.id}
+					onClick={this.props.setTag.bind(this, tag)}>
 					<span style={dotStyle}></span>
 					{tag.name}
 				</button>
@@ -198,6 +200,8 @@ class Tags extends React.Component {
 			<div className="task-tags">
 				Tags:&nbsp;
 				{tags}
+				<button
+					onClick={this.props.update.bind(this)}>Update</button>
 			</div>
 		);
 	}
@@ -214,159 +218,3 @@ class Modal extends React.Component {
 		);
 	}
 }
-
-class App extends React.Component {
-	constructor() {
-		super();
-		this.state = {
-			tasks: []
-		}
-	}
-
-	componentWillMount() {
-		if (localStorage && localStorage.getItem('tasks')) {
-			this.setState({
-				tasks: JSON.parse(localStorage.getItem('tasks'))
-			});
-		}
-		else {
-			this.setState({
-				tasks: [
-					{
-						id: uuid(),
-						content: "Learn React",
-						completed: false 
-					},
-					{
-						id: uuid(),
-						content: "Make another app",
-						completed: false
-					},
-					{
-						id: uuid(),
-						content: "Make to do list",
-						completed: true 
-					}
-				]
-			})
-		}
-		this.setState({
-			activeList: 'all',
-			tags: [
-				{
-					id: uuid(),
-					name: 'Home',
-					colour: colour(true)
-				},
-				{
-					id: uuid(),
-					name: 'Work',
-					colour: colour(true)
-				},
-				{
-					id: uuid(),
-					name: 'School',
-					colour: colour(true)
-				}
-			]
-		})
-		
-	}
-
-	// Handlers
-	handleAddTask(task) {
-		console.log(task);
-		let tasks = this.state.tasks;
-		tasks.unshift(task);
-		this.setState({tasks: tasks});
-		localStorage.setItem('tasks', JSON.stringify(tasks));
-	}
-
-	handleRemoveTask(id) {
-		console.log('Delete ' + id);
-		let tasks = this.state.tasks;
-		let target = tasks.findIndex(index => index.id === id);
-		tasks.splice(target, 1);
-		this.setState({tasks: tasks});
-		localStorage.setItem('tasks', JSON.stringify(tasks));
-	}
-
-	handleCheckTask(id) {
-		console.log('Check ' + id);
-		let tasks = this.state.tasks;
-		let target = tasks.findIndex(index => index.id === id);
-		tasks[target].completed = tasks[target].completed === true ? false : true;
-		this.setState({tasks: tasks});
-		localStorage.setItem('tasks', JSON.stringify(tasks));
-	}
-
-	// Setters
-	setActiveList(list) {
-		let activeList = list;
-		this.setState({activeList: activeList});
-	}   
-
-	// Getters
-	getCompletedTasks() {
-		let tasks = this.state.tasks;
-		let completed = tasks.filter(item => item.completed === true);
-		return completed.length;
-	}
-
-	getTotalTasks() {
-		return this.state.tasks.length;
-	}
-
-	getActiveList() {
-		let active = this.state.activeList;
-		let tasks = this.state.tasks;
-		switch (active) {
-			case 'all':
-				return tasks;
-				break;
-			case 'active':
-				return tasks.filter(item => item.completed === false);
-				break;
-			case 'completed':
-				return tasks.filter(item => item.completed === true);
-				break;
-		}
-	}
-
-	clearCompleted() {
-		let tasks = this.state.tasks;
-		tasks = tasks.filter(item => item.completed === false);
-		this.setState({tasks: tasks});
-		localStorage.setItem('tasks', JSON.stringify(tasks));
-	}
-
-	render() {
-		return (
-			<div className="app">
-        <AddTask addTask={this.handleAddTask.bind(this)} />
-
-				<Tags tags={this.state.tags}/>
-
-				<TaskList 
-					tasks={this.getActiveList.call(this)}
-					removeTask={this.handleRemoveTask.bind(this)}
-					checkTask={this.handleCheckTask.bind(this)}
-					tags={this.state.tags} />
-
-				<TaskControls
-					completed={this.getCompletedTasks.bind(this)}
-					total={this.getTotalTasks.bind(this)}
-					activeList={this.state.activeList}
-					setActiveList={this.setActiveList.bind(this)}
-					clearCompleted={this.clearCompleted.bind(this)} />
-
-				 {/* <Modal content="Nothing yet" /> */}
-			</div>
-		);
-	}
-}
-
-ReactDOM.render(
-	<App />,
-	document.getElementById('root')
-);
