@@ -21,13 +21,20 @@ function uuid(len) {
   return string;
 }
 
-function colour() {
-	let val = '#',
-			chars = '1234567890ABCDEF';
-	for (let i = 0; i < 6; i++) {
-		let temp = chars.split('')[Math.floor(Math.random()*16)];
-		val += temp + '';
+function colour(bright) {
+	let val;
+
+	if (bright) {
+		val = 'hsl(' + Math.floor(Math.random() * 360) + ', 100%, 60%)';
 	}
+	else {
+		val = '#';
+		let chars = '1234567890ABCDEF'.split('');
+		for (let i = 0; i < 6; i++) {
+			val += chars[Math.floor(Math.random() * chars.length)];
+		}
+	}
+	
 	console.log(val);
 	return val;
 }
@@ -86,6 +93,14 @@ class TaskItem extends React.Component {
 	}
 
 	render() {
+		let tags = this.props.tags,
+				task = this.props.task;
+
+		let colour = tags[task.tag] !== undefined ? tags[task.tag].colour : '#ccc';
+				
+		let tagStyle = {
+			borderColor: colour
+		}
 		return (
 			<li>
 				<input
@@ -93,8 +108,12 @@ class TaskItem extends React.Component {
 					type="checkbox"
 					checked={this.props.task.completed}
 					onChange={this.checkTask.bind(this, this.props.task.id)}/>
-				<label htmlFor={this.props.task.id}>
+				<label
+					htmlFor={this.props.task.id}>
 					{this.props.task.content}
+					<span
+						className="task-strike">
+					</span>
 				</label>
 				<button
 					className="task-item-remove"
@@ -115,7 +134,12 @@ class TaskList extends React.Component {
 		let taskItems = this.props.tasks.map(task => {
       // console.log(task.id);
       return (
-				<TaskItem task={task} key={task.id} onRemove={this.props.removeTask.bind(this)} onCheck={this.props.checkTask.bind(this)} />
+				<TaskItem
+					task={task}
+					key={task.id}
+					onRemove={this.props.removeTask.bind(this)}
+					onCheck={this.props.checkTask.bind(this)}
+					tags={this.props.tags} />
       )
     });
 
@@ -131,7 +155,7 @@ class TaskControls extends React.Component {
 	render() {
 		return (
 			<div className="task-controls">
-				<span>{this.props.completed()} / {this.props.total()} Tasks Completed</span>
+				<span>{this.props.completed()} / {this.props.total()} Completed</span>
 				<button
 					onClick={this.props.setActiveList.bind(this, 'all')}
 					className={this.props.activeList === 'all' ? 'btn-active' : ''}>
@@ -149,7 +173,7 @@ class TaskControls extends React.Component {
 				</button>
 				<button
 					onClick={this.props.clearCompleted}>
-					Clear Completed
+					<i className="fa fa-trash-o" aria-hidden="true"></i> Clear Completed
 				</button>
 			</div>
 		)
@@ -172,6 +196,7 @@ class Tags extends React.Component {
 		});
 		return (
 			<div className="task-tags">
+				Tags:&nbsp;
 				{tags}
 			</div>
 		);
@@ -231,17 +256,17 @@ class App extends React.Component {
 				{
 					id: uuid(),
 					name: 'Home',
-					colour: colour()
+					colour: colour(true)
 				},
 				{
 					id: uuid(),
 					name: 'Work',
-					colour: colour()
+					colour: colour(true)
 				},
 				{
 					id: uuid(),
 					name: 'School',
-					colour: colour()
+					colour: colour(true)
 				}
 			]
 		})
@@ -325,7 +350,8 @@ class App extends React.Component {
 				<TaskList 
 					tasks={this.getActiveList.call(this)}
 					removeTask={this.handleRemoveTask.bind(this)}
-					checkTask={this.handleCheckTask.bind(this)} />
+					checkTask={this.handleCheckTask.bind(this)}
+					tags={this.state.tags} />
 
 				<TaskControls
 					completed={this.getCompletedTasks.bind(this)}
