@@ -57,7 +57,7 @@ h1:after {
   height: 2px;
   width: 80px;
   bottom: 0;
-  background: #3d99f5;
+  background: #5c3df5;
 }
 input[type=text] {
   font-weight: 300;
@@ -97,7 +97,7 @@ input[type=text]:focus {
   height: 3px;
   width: 100%;
   border-radius: 0 0 50px 50px;
-  background: linear-gradient(to right, #3d99f5, #3dd6f5);
+  background: linear-gradient(to right, #5c3df5, #3d5cf5);
 }
 .task-form {
   margin: 0;
@@ -171,7 +171,10 @@ input[type=text]:focus {
 }
 .task-tags {
   padding: .5rem 1rem;
-  border-bottom: 1px solid #eef2f6;
+  border-bottom: 1px solid #f0eef6;
+}
+.task-tags > span {
+  color: #9b9ba6;
 }
 .task-tags button {
   cursor: pointer;
@@ -187,9 +190,6 @@ input[type=text]:focus {
   transition: 300ms ease;
   font-weight: 600;
   color: #6f6f77;
-}
-.task-tags button:hover {
-  background-color: #eef2f6;
 }
 .task-tags button span {
   border-radius: 100px;
@@ -230,7 +230,7 @@ input[type=text]:focus {
   stroke-linecap: round;
   width: 100%;
   height: 100%;
-  stroke: #3d99f5;
+  stroke: #5c3df5;
 }
 .task-add-button:hover {
   background: #f2f2f2;
@@ -294,7 +294,7 @@ input[type=checkbox] + label .task-strike {
   right: 0;
   left: 2rem;
   top: 50%;
-  background: #3d99f5;
+  background: #5c3df5;
   transition: 450ms ease;
   transform: scaleX(0);
   transform-origin: left;
@@ -320,8 +320,8 @@ input[type=checkbox] + label::after {
   height: 0.35714286rem;
   width: 0.625rem;
   margin-right: .5rem;
-  border-left: 2px solid #3d99f5;
-  border-bottom: 2px solid #3d99f5;
+  border-left: 2px solid #5c3df5;
+  border-bottom: 2px solid #5c3df5;
   transform: rotate(-45deg) scale(0.5);
   transform-origin: 50% 50%;
   opacity: 0;

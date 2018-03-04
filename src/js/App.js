@@ -7,38 +7,38 @@ class App extends React.Component {
 	}
 
 	componentWillMount() {
+        let initial = [
+            {
+                id: uuid(),
+                content: "Learn React",
+                completed: false,
+                tag: 'Work'
+            },
+            {
+                id: uuid(),
+                content: "Make another app",
+                completed: false,
+                tag: false
+            },
+            {
+                id: uuid(),
+                content: "Make to do list",
+                completed: true,
+                tag: false
+            }
+        ];
 		if (localStorage && localStorage.getItem('tasks')) {
 			this.setState({
 				tasks: JSON.parse(localStorage.getItem('tasks'))
 			});
 		}
 		else {
-			this.setState({
-				tasks: [
-					{
-						id: uuid(),
-						content: "Learn React",
-						completed: false,
-						tag: 'Work'
-					},
-					{
-						id: uuid(),
-						content: "Make another app",
-						completed: false,
-						tag: false
-					},
-					{
-						id: uuid(),
-						content: "Make to do list",
-						completed: true,
-						tag: false
-					}
-				]
-			})
+			this.setState({tasks: initial})
 		}
 		this.setState({
 			activeList: 'all',
-			activeTag: 'all',
+            activeTag: 'all',
+            initial: initial,
 			tags: [
 				{
 					id: uuid(),
@@ -60,7 +60,33 @@ class App extends React.Component {
 					name: 'School',
 					colour: colour(true)
 				}
-			]
+            ],
+            filters: [
+                {   
+                    id: uuid(),
+                    name: 'all',
+                    label: 'All Tasks',
+                    method: function (item) {
+                        return item;
+                    }
+                },
+                {   
+                    id: uuid(),
+                    name: 'active',
+                    label: 'Active',
+                    method: function (item) {
+                        return item.completed === false;
+                    }
+                },
+                {   
+                    id: uuid(),
+                    name: 'completed',
+                    label: 'Completed',
+                    method: function (item) {
+                        return item.completed === true;
+                    }
+                }
+            ]
 		})
 		
 	}
@@ -93,27 +119,24 @@ class App extends React.Component {
 	}
 
 	// Setters
-	setActiveList(list) {
-		let activeList = list;
-		this.setState({activeList: activeList});
+	setFilter(filter) {
+		let activeFilter = filter.name;
+		this.setState({activeFilter: activeFilter});
 	}  
 
 	setTag(tag) {
-		this.setState({activeTag: tag.name});
+        let activeTag = tag.name;
+		this.setState({activeTag: activeTag});
 	}
 
-	update() {
-		let tasks = this.state.tasks;
-		tasks.forEach(function(obj) {
-			if (obj.tag === undefined) {
-				obj.tag = false;
-			}
-		})
+	reset() {
+        let tasks =  this.state.initial;
 		this.setState({tasks: tasks});
+		localStorage.setItem('tasks', JSON.stringify(tasks));
 	}
 
 	// Getters
-	getCompletedTasks() {
+	getTotalCompleted() {
 		let tasks = this.state.tasks;
 		let completed = tasks.filter(item => item.completed === true);
 		return completed.length;
@@ -124,19 +147,27 @@ class App extends React.Component {
 	}
 
 	getActiveList() {
-		let active = this.state.activeList;
+        let filter = this.state.activeFilter;
+        let tag = this.state.activeTag;
 		let tasks = this.state.tasks;
-		switch (active) {
-			case 'all':
-				return tasks;
-				break;
-			case 'active':
-				return tasks.filter(item => item.completed === false);
-				break;
-			case 'completed':
-				return tasks.filter(item => item.completed === true);
-				break;
-		}
+
+        //Filte by Filter
+        for (let i = 0, len = this.state.filters.length; i < len; i++) {
+            const element = this.state.filters[i];
+            if (filter === element.name) {
+                tasks = tasks.filter(function (item) {
+                    return element.method(item);
+                });
+            }
+        }
+
+        // Filter by Tag
+        if (tag === 'all') {
+            return tasks;
+        }
+        else {
+            return tasks.filter(item => item.tag === tag);
+        }
 	}
 
 	clearCompleted() {
@@ -154,7 +185,8 @@ class App extends React.Component {
 				<Tags
 					tags={this.state.tags}
 					setTag={this.setTag.bind(this)}
-					update={this.update.bind(this)}/>
+					activeTag={this.state.activeTag}
+					reset={this.reset.bind(this)}/>
 
 				<TaskList 
 					tasks={this.getActiveList.call(this)}
@@ -163,10 +195,11 @@ class App extends React.Component {
 					tags={this.state.tags} />
 
 				<TaskControls
-					completed={this.getCompletedTasks.bind(this)}
+                    completed={this.getTotalCompleted.bind(this)}
+                    filters={this.state.filters}
 					total={this.getTotalTasks.bind(this)}
-					activeList={this.state.activeList}
-					setActiveList={this.setActiveList.bind(this)}
+					activeFilter={this.state.activeFilter}
+					setFilter={this.setFilter.bind(this)}
 					clearCompleted={this.clearCompleted.bind(this)} />
 
 				 {/* <Modal content="Nothing yet" /> */}

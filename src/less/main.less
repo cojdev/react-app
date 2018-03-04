@@ -148,6 +148,9 @@ input[type=text] {
 .task-tags {
     padding: .5rem 1rem;
     border-bottom: 1px solid mix(@primary-light, #fff, 50%);
+    &>span {
+        color: #9b9ba6;
+    }
     button {
         .button;
         border-radius: 100px;
@@ -157,9 +160,6 @@ input[type=text] {
         font-weight: 600;
         color: mix(@accent-light, black, 50%);
 
-        &:hover {
-            background-color: mix(@primary-light, #fff, 50%);
-        }
         span {
             border-radius: 100px;
             height: .75em;
