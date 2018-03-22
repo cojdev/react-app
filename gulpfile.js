@@ -4,8 +4,10 @@ var gulp = require('gulp'),
     concat = require('gulp-concat');
 
 // Compile Less files
+// gulp.task('less', ['less:main', 'less:gradient']);
+
 gulp.task('less', function() {
-    return gulp.src('src/less/**/main.less')
+    return gulp.src(['src/less/**/main.less', 'src/less/**/gradient.less'])
         .pipe(sourcemaps.init())
         .pipe(less().on('error', function(err){
             gutil.log(err);
@@ -14,6 +16,17 @@ gulp.task('less', function() {
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('docs/css'));
 });
+
+// gulp.task('less', function() {
+//     return gulp.src('src/less/**/gradient.less')
+//         .pipe(sourcemaps.init())
+//         .pipe(less().on('error', function(e){
+//             gutil.log(e);
+//             this.emit('end');
+//         }))
+//         .pipe(sourcemaps.write('./'))
+//         .pipe(gulp.dest('docs/css'));
+// });
 
 gulp.task('js', function() {
     return gulp.src(['src/js/!(App)*.js','src/js/App.js'])

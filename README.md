@@ -5,7 +5,7 @@ Some React.js Tests
 * Todo App
 
 ## To do
-* Add editing functionality to Todo App
+* Add editing functionality to #Todo App
 * Add ability to choose and show tags on Todo App
 
 ## Resources

@@ -157,6 +157,7 @@ class TaskControls extends React.Component {
   render() {
     let filters = this.props.filters;
     filters = filters.map(filter => {
+      console.log(filter);
       return (
         <button
           key={filter.id}
@@ -260,7 +261,7 @@ class App extends React.Component {
 			this.setState({tasks: initial})
 		}
 		this.setState({
-			activeList: 'all',
+			activeFilter: 'all',
             activeTag: 'all',
             initial: initial,
 			tags: [
@@ -284,33 +285,33 @@ class App extends React.Component {
 					name: 'School',
 					colour: colour(true)
 				}
-            ],
-            filters: [
-                {   
-                    id: uuid(),
-                    name: 'all',
-                    label: 'All Tasks',
-                    method: function (item) {
-                        return item;
-                    }
-                },
-                {   
-                    id: uuid(),
-                    name: 'active',
-                    label: 'Active',
-                    method: function (item) {
-                        return item.completed === false;
-                    }
-                },
-                {   
-                    id: uuid(),
-                    name: 'completed',
-                    label: 'Completed',
-                    method: function (item) {
-                        return item.completed === true;
-                    }
-                }
-            ]
+      ],
+      filters: [
+          {   
+              id: uuid(),
+              name: 'all',
+              label: 'All Tasks',
+              method: function (item) {
+                  return item;
+              }
+          },
+          {   
+              id: uuid(),
+              name: 'active',
+              label: 'Active',
+              method: function (item) {
+                  return item.completed === false;
+              }
+          },
+          {   
+              id: uuid(),
+              name: 'completed',
+              label: 'Completed',
+              method: function (item) {
+                  return item.completed === true;
+              }
+          }
+      ]
 		})
 		
 	}

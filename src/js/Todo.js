@@ -157,6 +157,7 @@ class TaskControls extends React.Component {
   render() {
     let filters = this.props.filters;
     filters = filters.map(filter => {
+      console.log(filter);
       return (
         <button
           key={filter.id}

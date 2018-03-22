@@ -36,7 +36,7 @@ class App extends React.Component {
 			this.setState({tasks: initial})
 		}
 		this.setState({
-			activeList: 'all',
+			activeFilter: 'all',
             activeTag: 'all',
             initial: initial,
 			tags: [
