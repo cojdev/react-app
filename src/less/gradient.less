@@ -58,6 +58,12 @@ ul {
     position: relative;
     height: 400px;
     perspective: 1000px;
+    .tablet({
+        width: ~"calc((100% / 3) - 2rem)";
+    });
+    .mobile({
+        width: ~"calc((100% / 2) - 2rem)";
+    });
 }
 
 // Card Front

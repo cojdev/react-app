@@ -5,7 +5,13 @@
 }
 
 .mobile (@rules) {
-    @media screen and (max-width: 640px) {
+    @media screen and (max-width: 720px) {
+        @rules();
+    }
+}
+
+.tablet (@rules) {
+    @media screen and (max-width: 1080px) {
         @rules();
     }
 }

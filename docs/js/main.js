@@ -60,8 +60,7 @@ class AddTask extends React.Component {
           id: uuid(),
           tag: 'Home'
         }
-      },
-      function () {
+      }, function () {
         console.log(this.state);
         this.props.addTask(this.state.newTask);
         this.refs.taskName.value = '';
@@ -286,33 +285,33 @@ class App extends React.Component {
 					name: 'School',
 					colour: colour(true)
 				}
-      ],
-      filters: [
-          {   
-              id: uuid(),
-              name: 'all',
-              label: 'All Tasks',
-              method: function (item) {
-                  return item;
-              }
-          },
-          {   
-              id: uuid(),
-              name: 'active',
-              label: 'Active',
-              method: function (item) {
-                  return item.completed === false;
-              }
-          },
-          {   
-              id: uuid(),
-              name: 'completed',
-              label: 'Completed',
-              method: function (item) {
-                  return item.completed === true;
-              }
-          }
-      ]
+            ],
+            filters: [
+                {   
+                    id: uuid(),
+                    name: 'all',
+                    label: 'All Tasks',
+                    method: function (item) {
+                        return item;
+                    }
+                },
+                {   
+                    id: uuid(),
+                    name: 'active',
+                    label: 'Active',
+                    method: function (item) {
+                        return item.completed === false;
+                    }
+                },
+                {   
+                    id: uuid(),
+                    name: 'completed',
+                    label: 'Completed',
+                    method: function (item) {
+                        return item.completed === true;
+                    }
+                }
+            ]
 		})
 		
 	}
@@ -421,8 +420,8 @@ class App extends React.Component {
 					tags={this.state.tags} />
 
 				<TaskControls
-          completed={this.getTotalCompleted.bind(this)}
-          filters={this.state.filters}
+                    completed={this.getTotalCompleted.bind(this)}
+                    filters={this.state.filters}
 					total={this.getTotalTasks.bind(this)}
 					activeFilter={this.state.activeFilter}
 					setFilter={this.setFilter.bind(this)}

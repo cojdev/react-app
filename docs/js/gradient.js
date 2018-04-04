@@ -26,10 +26,33 @@ class GradientList extends React.Component {
 
     render() {
         let gradients = this.props.gradients.map(item => {
-            let colours = item.stops.join(', ');
-            let direction = item.direction || '225deg';
-            let gradientStyle = { backgroundImage: 'linear-gradient(' + direction + ', ' + colours + ')' };
-            let css = 'background-image: linear-gradient(' + direction + ', ' + colours + ');';
+                //console.log(item.stops[0]);
+            if (Array.isArray(item.stops[0])) {
+                // let colours = item.stops.join(', ');
+                // let direction = item.direction || '225deg';
+                // let gradientStyle = { backgroundImage: 'linear-gradient(' + direction + ', ' + colours + ')' };
+                // let css = 'background-image: linear-gradient(' + direction + ', ' + colours + ');';
+                console.log(item.stops);
+                let colours = item.stops.map(comp => comp.join(', '));
+                let dir = item.direction;
+                
+                var styles = [];
+
+                for (let i = 0; i < colours.length; i++) {
+                    styles.push('linear-gradient(' + dir[i] + ', ' + colours[i] + ')');
+                }
+
+                var gradientStyle =  { backgroundImage: styles.join(', ') };
+                var css = 'background-image: ' + styles.join(', ') + ';';
+                
+            }
+            else {
+                let colours = item.stops.join(', ');
+                let direction = item.direction || '225deg';
+                var gradientStyle = { backgroundImage: 'linear-gradient(' + direction + ', ' + colours + ')' };
+                var css = 'background-image: linear-gradient(' + direction + ', ' + colours + ');';
+            }
+            
             return (
                 <li
                     className={item.class}
@@ -127,7 +150,20 @@ class App extends React.Component {
                     name: 'Pinkish',
                     stops: ['#85c','#d26'],
                     direction: '225deg'
-                })
+                }),
+                new gradient({
+                    name: 'Lawn',
+                    stops: ['#693','#8c6'],
+                }),
+                new gradient({
+                    name: 'Tutti',
+                    stops: [
+                        ['rgba(255,0,0,.8)', 'rgba(255,0,0,0) 70.71%'],
+                        ['rgba(0,255,0,.8)', 'rgba(0,255,0,0) 70.71%'],
+                        ['rgba(0,0,255,.8)', 'rgba(0,0,255,0) 70.71%']
+                    ],
+                    direction: ['217deg', '127deg', '336deg'],
+                }),
             ]
         });
     }

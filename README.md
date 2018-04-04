@@ -4,6 +4,7 @@ Some React.js Tests
 ## Examples
 * Todo App
 * Gradient App
+* Password Generator
 
 ## To do
 * Add editing functionality to #Todo App
