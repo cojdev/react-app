@@ -34,20 +34,20 @@ class GradientList extends React.Component {
                 <li
                     className={item.class}
                     key={item.id}>
-                    <div className="gradient-sample"
+                    <div className="card-gradient"
                         style={gradientStyle}>
                         <button
-                            className="gradient-button"
+                            className="ui-button"
                             onClick={this.props.flipCard.bind(this, item.id)}>
                             <i className="fa fa-plus-circle" aria-hidden="true"></i>
                         </button>
                         <div
-                            className="gradient-label">{item.name}</div>
+                            className="card-label">{item.name}</div>
                     </div>
                     <div
-                        className="gradient-body">
+                        className="card-body">
                         <button
-                            className="gradient-button"
+                            className="ui-button"
                             onClick={this.props.flipCard.bind(this, item.id)}>
                             <i className="fa fa-times" aria-hidden="true"></i>
                         </button>
@@ -56,9 +56,11 @@ class GradientList extends React.Component {
                         <code
                             className="gradient-code">{css}</code>
                         </pre>
+                        <div
+                            className="card -float"></div>
                         <button
                             className="sample-button"
-                            style={gradientStyle}>Button</button>
+                            style={gradientStyle}>Button</button>{' '}
                         <button
                             className="sample-button__ghost"
                             style={gradientStyle}>Button</button>
@@ -103,13 +105,13 @@ class App extends React.Component {
                     direction: '225deg'
                 }),
                 new gradient({
-                    name: 'Pinkish',
-                    stops: ['#85c','#d26'],
-                    direction: '225deg'
-                }),
-                new gradient({
                     name: 'Azure',
                     stops: ['#48c','#6cf']
+                }),
+                new gradient({
+                    name: 'Midnight',
+                    stops: ['#213','#236'],
+                    direction: '225deg'
                 }),
                 new gradient({
                     name: 'Vapor',
@@ -122,8 +124,8 @@ class App extends React.Component {
                     direction: '225deg'
                 }),
                 new gradient({
-                    name: 'Midnight',
-                    stops: ['#213','#236'],
+                    name: 'Pinkish',
+                    stops: ['#85c','#d26'],
                     direction: '225deg'
                 })
             ]
@@ -131,12 +133,16 @@ class App extends React.Component {
     }
 
     flipCard(id) {
-        console.log('flip ' + id);
+        // console.log('flip ' + id);
 		let gradients = this.state.gradients;
-        let target = gradients.findIndex(index => index.id === id);
-        gradients[target].flipped = !gradients[target].flipped;
-        gradients[target].class = 'gradient-item' + (gradients[target].flipped === true ?
-            ' flipped' : '');
+        let target = gradients[gradients.findIndex(index => index.id === id)];
+        target.flipped = !target.flipped;
+
+        target.class = 'gradient-item';
+        if (target.flipped) {
+            target.class = target.class + ' flipped';
+        }
+
 		this.setState({gradients: gradients});
     }
  

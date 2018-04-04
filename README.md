@@ -3,6 +3,7 @@ Some React.js Tests
 
 ## Examples
 * Todo App
+* Gradient App
 
 ## To do
 * Add editing functionality to #Todo App

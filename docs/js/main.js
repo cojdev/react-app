@@ -60,7 +60,8 @@ class AddTask extends React.Component {
           id: uuid(),
           tag: 'Home'
         }
-      }, function () {
+      },
+      function () {
         console.log(this.state);
         this.props.addTask(this.state.newTask);
         this.refs.taskName.value = '';
@@ -420,8 +421,8 @@ class App extends React.Component {
 					tags={this.state.tags} />
 
 				<TaskControls
-                    completed={this.getTotalCompleted.bind(this)}
-                    filters={this.state.filters}
+          completed={this.getTotalCompleted.bind(this)}
+          filters={this.state.filters}
 					total={this.getTotalTasks.bind(this)}
 					activeFilter={this.state.activeFilter}
 					setFilter={this.setFilter.bind(this)}
