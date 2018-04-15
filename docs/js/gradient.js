@@ -142,9 +142,13 @@ class App extends React.Component {
                     direction: '180deg'
                 }),
                 new gradient({
-                    name: 'Peach',
-                    stops: ['#fe6','#e34'],
-                    direction: '225deg'
+                    name: 'Tutti',
+                    stops: [
+                        ['rgba(255,0,0,.8)', 'rgba(255,0,0,0) 70.71%'],
+                        ['rgba(0,255,0,.8)', 'rgba(0,255,0,0) 70.71%'],
+                        ['rgba(0,0,255,.8)', 'rgba(0,0,255,0) 70.71%']
+                    ],
+                    direction: ['217deg', '127deg', '336deg'],
                 }),
                 new gradient({
                     name: 'Pinkish',
@@ -156,13 +160,9 @@ class App extends React.Component {
                     stops: ['#693','#8c6'],
                 }),
                 new gradient({
-                    name: 'Tutti',
-                    stops: [
-                        ['rgba(255,0,0,.8)', 'rgba(255,0,0,0) 70.71%'],
-                        ['rgba(0,255,0,.8)', 'rgba(0,255,0,0) 70.71%'],
-                        ['rgba(0,0,255,.8)', 'rgba(0,0,255,0) 70.71%']
-                    ],
-                    direction: ['217deg', '127deg', '336deg'],
+                    name: 'Peach',
+                    stops: ['#fe6','#e34'],
+                    direction: '225deg'
                 }),
             ]
         });

@@ -1,3 +1,4 @@
+// Helpers
 function uuid(len) {
   let length = len || 6;
   let charCodes = [];
@@ -19,7 +20,11 @@ function uuid(len) {
   return string;
 }
 
+// Number Input Component
 class InputNumber extends React.Component {
+  handleChange(e) {
+    this.props.onChange(this.props.base, e.target.value);
+  }
   render() {
     return (
     <div
@@ -29,14 +34,19 @@ class InputNumber extends React.Component {
       <input
         type="number"
         id={this.props.base.id}
-        //value={this.props.base.value}
+        value={this.props.base.value}
+        onChange={this.handleChange.bind(this)}
         className="form-control" />
     </div>
     );
   }
 }
 
+// Text Input Component
 class InputText extends React.Component {
+  handleChange(e) {
+    this.props.onChange(this.props.base, e.target.value);
+  }
   render() {
     return (
       <div
@@ -47,12 +57,14 @@ class InputText extends React.Component {
         type="text"
         id={this.props.base.id}
         value={this.props.base.value}
+        onChange={this.handleChange.bind(this)}
         className="form-control" />
     </div>
     );
   }
 }
 
+// Checkbox Input Component
 class InputBoolean extends React.Component {
   render() {
     return (
@@ -86,7 +98,8 @@ class Options extends React.Component {
             return (
               <InputNumber
                 key={item.id}
-                base={item} />
+                base={item}
+                onChange={this.props.changeSetting.bind(this)} />
             );
             break;
           case 'boolean':
@@ -101,7 +114,8 @@ class Options extends React.Component {
             return (
               <InputText
                 key={item.id}
-                base={item} />
+                base={item}
+                onChange={this.props.changeSetting.bind(this)} />
             )
         }
         
@@ -162,7 +176,7 @@ class App extends React.Component {
     super();
     this.state = {
       password: '',
-
+      // App Settings
       settings: [
         {
           name: 'length',
@@ -225,15 +239,27 @@ class App extends React.Component {
     let d = set.findIndex(index => index.name === 'disallowed');
     let l = set.findIndex(index => index.name === 'length');
 
-    const chars = 
+    let chars = 
       lower +
       (set[u].value ? upper : '') +
       (set[n].value ? num : '');
+    
+    var charArray = chars.split('').filter(function(item){
+      return set[d].value.split('').indexOf(item) === -1;
+    });
 
     for (let i = 0; i < +set[l].value; i++) {
-      const elem = chars.split('');
-      result += elem[Math.floor(Math.random() * chars.length)];
+      let elem = (charArray[Math.floor(Math.random() * charArray.length)]);
+
+      if (elem === undefined) {
+        result = 'ERROR: No possible characters!';
+        break;
+      }
+
+      result += elem;
     }
+
+
 
     this.setState({ password: result });
   }
